@@ -1,55 +1,48 @@
-# Custom Chatwoot Build - Stellar Syntec Edition
+# Custom Chatwoot Build - Stellar Syntec Edition (Phase 3: Aesthetic Transmutation)
 
 ## 1. Directory Structure
 
-Create a new folder `chatwoot-custom` and set it up as follows:
+Ensure your `chatwoot-custom` folder is set up as follows:
 
 ```
 chatwoot-custom/
-├── chatwoot/                  # Clone of the official repository (git clone https://github.com/chatwoot/chatwoot.git)
+├── chatwoot/                  # Clone of the official repository
 ├── custom/                    # Your customization files
-│   ├── _next-colors.scss      # Dashboard colors
-│   ├── woot.scss              # Widget colors
-│   ├── colors.js              # Tailwind brand color override
+│   ├── _next-colors.scss      # Deep Space Palette
+│   ├── stellar-effects.scss   # Glassmorphism & Animations
+│   ├── Login.vue              # New Futuristic Login
 │   ├── en.yml                 # Locale overrides
 │   ├── brand-assets/          # Logos
-│   │   ├── logo.svg
-│   │   └── logo_dark.svg
 │   └── favicons/              # Favicons
-│       ├── favicon-32x32.png
-│       └── ...
 ├── Dockerfile                 # The custom Dockerfile
 └── docker-compose.yaml        # For Portainer
 ```
 
-## 2. Code Modifications (The `custom/` folder)
+## 2. Code Modifications
 
 ### `custom/_next-colors.scss`
-*Overrides `app/javascript/dashboard/assets/scss/_next-colors.scss`*
+*Redefining the visual foundation for Deep Space.*
 
 ```scss
 @layer base {
   :root {
-    // Stellar Syntec Palette
-    // Backgrounds: Deep Space Blue/Black (RGB: 0, 0, 26)
-    // Primary: Cyan (RGB: 0, 255, 255)
-    // Secondary: Purple (RGB: 89, 0, 224)
-
-    // SLATE (Backgrounds & Grays)
-    --slate-1: 0 0 26;      // Main App Background
-    --slate-2: 5 5 35;      // Secondary Background
-    --slate-3: 10 10 45;    // Borders / Dividers
+    // Stellar Syntec Palette: Deep Space & Neon Cyan
+    
+    // Base Slate (Deep Space Gradients & Backgrounds)
+    --slate-1: 0 0 26;      // #00001A (Deep Space)
+    --slate-2: 5 5 35;      // #050523 (Slightly Lighter Space)
+    --slate-3: 10 10 45;    // Panel Backgrounds
     --slate-4: 15 15 55;
     --slate-5: 20 20 65;
     --slate-6: 30 30 80;
-    --slate-7: 50 50 100;   // Muted Text
+    --slate-7: 50 50 100;
     --slate-8: 70 70 120;
     --slate-9: 100 100 150;
     --slate-10: 130 130 180;
-    --slate-11: 180 180 220; // Primary Text
-    --slate-12: 250 250 250; // High Contrast Text
+    --slate-11: 0 255 255;  // Text Primary (Cyan for high tech feel)
+    --slate-12: 255 255 255; // Text High Contrast
 
-    // BLUE (Primary Accents - Cyan)
+    // Brand Colors (Cyan)
     --blue-1: 0 20 20;
     --blue-2: 0 30 30;
     --blue-3: 0 40 40;
@@ -58,91 +51,308 @@ chatwoot-custom/
     --blue-6: 0 80 80;
     --blue-7: 0 120 120;
     --blue-8: 0 180 180;
-    --blue-9: 0 255 255;    // Primary Brand Color
+    --blue-9: 0 255 255;    // Stellar Cyan
     --blue-10: 20 255 255;
     --blue-11: 50 255 255;
     --blue-12: 200 255 255;
 
-    // IRIS (Secondary Accents - Purple)
-    --iris-1: 20 0 50;
-    --iris-2: 30 0 70;
-    --iris-3: 40 0 90;
-    --iris-4: 50 0 110;
-    --iris-5: 60 0 130;
-    --iris-6: 70 0 150;
-    --iris-7: 80 0 180;
-    --iris-8: 89 0 224;     // Secondary Brand Color
-    --iris-9: 89 0 224;
-    --iris-10: 100 20 240;
-    --iris-11: 120 40 255;
-    --iris-12: 230 200 255;
+    // Secondary Accents (Purple)
+    --iris-1: 10 0 25;
+    --iris-2: 20 0 40;
+    --iris-9: 138 43 226;   // Blue Violet
 
     // Semantic Mapping
     --background-color: 0 0 26;
     --text-blue: 0 255 255;
-    --border-container: 10 10 45;
-    --border-strong: 15 15 55;
+    --border-container: 0 255 255; // Cyan borders (low opacity handled in effects)
+    --border-strong: 0 255 255;
     --border-weak: 10 10 45;
 
+    // Glassmorphism Bases
     --solid-1: 5 5 35;
-    --solid-2: 10 10 45;     // Cards / Modals
+    --solid-2: 10 10 35;     // Sidebar / Panels
     --solid-3: 15 15 55;
-    --solid-active: 20 20 65;
+    --solid-active: 0 40 40; // Active states
     
     --solid-blue: 0 40 40;
-    --solid-iris: 30 0 70;
-
-    --alpha-1: 0, 0, 0, 0.2;
-    --alpha-2: 255, 255, 255, 0.05; // Light hover effect
-    --alpha-3: 255, 255, 255, 0.9;
-    --black-alpha-1: 0, 0, 0, 0.5;
-    --black-alpha-2: 0, 0, 0, 0.3;
-    --border-blue: 0, 255, 255, 0.5;
+    --alpha-1: 0, 0, 0, 0.3;
+    --alpha-2: 0, 255, 255, 0.05; // Hover tint
+    --alpha-3: 0, 0, 26, 0.9;
+    --black-alpha-1: 0, 0, 0, 0.6;
     --white-alpha: 255, 255, 255, 0.1;
-
-    // Keep standard grays for safety or map to slate
-    --gray-1: 10 10 10;
-    --gray-2: 15 15 15;
-    --gray-3: 20 20 20;
-    --gray-4: 25 25 25;
-    --gray-5: 30 30 30;
-    --gray-6: 40 40 40;
-    --gray-7: 50 50 50;
-    --gray-8: 60 60 60;
-    --gray-9: 80 80 80;
-    --gray-10: 100 100 100;
-    --gray-11: 150 150 150;
-    --gray-12: 200 200 200;
   }
 
-  // Force Dark Theme consistency
   .dark {
      @extend :root;
   }
 }
 ```
 
-### `custom/woot.scss`
-*Overrides `app/javascript/widget/assets/scss/woot.scss`*
-(Same content as above).
+### `custom/stellar-effects.scss`
+*The new file for Glassmorphism, Neon Glows, and Animations.*
 
-### `custom/colors.js`
-*Overrides `theme/colors.js`*
+```scss
+// --- Global Deep Space Background ---
+#app, body, html {
+  background: linear-gradient(180deg, #00001A 0%, #080824 100%) !important;
+  color: #fff;
+}
 
-```javascript
-// This file is used to instruct the user.
-// In the Dockerfile, we will use sed to patch the existing file to avoid missing imports.
+// --- Glassmorphism Mixin ---
+@mixin glass-panel {
+  background: rgba(10, 10, 35, 0.7) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+@mixin neon-glow {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4), inset 0 0 5px rgba(0, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.6) !important;
+}
+
+// --- Component Overrides ---
+
+// 1. Sidebar High-Tech Look
+aside {
+  @include glass-panel;
+  border-right: 1px solid rgba(0, 255, 255, 0.1) !important;
+
+  // Active Icon Glow
+  .active {
+    @include neon-glow;
+    background: rgba(0, 255, 255, 0.1) !important;
+    
+    svg {
+      filter: drop-shadow(0 0 3px #00FFFF);
+      color: #00FFFF !important;
+    }
+    
+    span {
+      color: #fff !important;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+  }
+
+  // Hover Effects
+  a:hover {
+    background: rgba(0, 255, 255, 0.05);
+    span { color: #00FFFF; }
+  }
+}
+
+// 2. Conversation List & Cards
+.conversation--list {
+  @include glass-panel;
+}
+
+.conversation-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: scale(1.02);
+    background: rgba(0, 255, 255, 0.05);
+    border-color: rgba(0, 255, 255, 0.3);
+  }
+
+  &.active {
+    @include neon-glow;
+    transform: scale(1.02);
+  }
+}
+
+// 3. Chat Area
+.conversation-panel {
+  @include glass-panel;
+}
+
+// Bubbles Fade In Up
+.message-content {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+// --- Animations ---
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Page Transitions
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
 ```
 
-### `custom/en.yml`
-*Partial override for `config/locales/en.yml`*
+### `custom/Login.vue`
+*Futuristic Login Portal (Replaces `app/javascript/v3/views/login/Index.vue`).*
 
-```yaml
-en:
-  chatwoot: "Stellar Syntec"
-  brand_name: "Stellar Syntec"
-  login:
-    title: "Welcome to Stellar Syntec"
+```vue
+<template>
+  <main class="flex items-center justify-center w-full min-h-screen relative overflow-hidden bg-slate-900">
+    <!-- Animated Deep Space Background (CSS Only) -->
+    <div class="absolute inset-0 z-0 bg-gradient-to-b from-[#00001A] to-[#080824]">
+      <div class="stars-container"></div>
+    </div>
+
+    <!-- Glass Card -->
+    <section class="relative z-10 w-full max-w-md p-8 m-4 space-y-6 glass-card animate-fade-in-up">
+      <!-- Logo Area -->
+      <div class="flex flex-col items-center justify-center mb-8">
+        <img
+          :src="globalConfig.logo"
+          :alt="globalConfig.installationName"
+          class="w-auto h-12 mb-4 drop-shadow-glow"
+        />
+        <h2 class="text-3xl font-bold text-center text-white tracking-widest uppercase glow-text">
+          {{ globalConfig.installationName }}
+        </h2>
+        <p class="mt-2 text-sm text-center text-cyan-200 opacity-80">
+          Secure Access Portal
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <form class="space-y-6" @submit.prevent="submitFormLogin">
+        <div class="space-y-4">
+          <div class="group">
+            <label class="block text-xs font-medium text-cyan-400 uppercase tracking-wider mb-1">Email Identity</label>
+            <input
+              v-model="credentials.email"
+              type="text"
+              placeholder="Enter your access ID"
+              class="w-full px-4 py-3 bg-black/30 border border-cyan-900/50 rounded text-white placeholder-cyan-900/50 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all duration-300"
+              required
+            />
+          </div>
+
+          <div class="group">
+             <label class="block text-xs font-medium text-cyan-400 uppercase tracking-wider mb-1">Passkey</label>
+             <input
+              v-model="credentials.password"
+              type="password"
+              placeholder="••••••••"
+              class="w-full px-4 py-3 bg-black/30 border border-cyan-900/50 rounded text-white placeholder-cyan-900/50 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all duration-300"
+              required
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-3 px-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.4)] relative overflow-hidden"
+          :disabled="loginApi.showLoading"
+        >
+          <span v-if="!loginApi.showLoading">Initialize Session</span>
+          <span v-else class="animate-pulse">Authenticating...</span>
+        </button>
+      </form>
+    </section>
+  </main>
+</template>
+
+<script>
+import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
+import { mapGetters } from 'vuex';
+import { login } from 'dashboard/api/auth';
+import { useAlert } from 'dashboard/composables';
+
+export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
+  data() {
+    return {
+      credentials: { email: '', password: '' },
+      loginApi: { showLoading: false, message: '' },
+    };
+  },
+  computed: {
+    ...mapGetters({ globalConfig: 'globalConfig/get' }),
+  },
+  methods: {
+    showAlertMessage(message) {
+      this.loginApi.showLoading = false;
+      useAlert(message);
+    },
+    submitLogin() {
+      this.loginApi.showLoading = true;
+      login(this.credentials)
+        .then(() => {
+          window.location = '/app';
+        })
+        .catch((error) => {
+          this.showAlertMessage(error?.message || 'Authentication Failed');
+        });
+    },
+    submitFormLogin() {
+      this.submitLogin();
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Glass Card */
+.glass-card {
+  background: rgba(0, 20, 40, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Subtle Animated Stars Effect */
+.stars-container {
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 10% 10%, white 1px, transparent 0),
+    radial-gradient(1px 1px at 20% 40%, white 1px, transparent 0),
+    radial-gradient(2px 2px at 40% 60%, white 1px, transparent 0),
+    radial-gradient(1px 1px at 60% 30%, white 1px, transparent 0),
+    radial-gradient(1px 1px at 80% 80%, white 1px, transparent 0);
+  background-size: 550px 550px;
+  opacity: 0.3;
+  animation: moveStars 100s linear infinite;
+}
+
+@keyframes moveStars {
+  from { background-position: 0 0; }
+  to { background-position: 550px 550px; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 ```
 
 ## 3. Dockerfile
@@ -206,9 +416,16 @@ RUN pnpm i
 # Copy the original source
 COPY chatwoot/ .
 
-# Inject Custom Colors
+# Inject Custom Colors & Effects
 COPY custom/_next-colors.scss /app/app/javascript/dashboard/assets/scss/_next-colors.scss
-COPY custom/woot.scss /app/app/javascript/widget/assets/scss/woot.scss
+COPY custom/stellar-effects.scss /app/app/javascript/dashboard/assets/scss/stellar-effects.scss
+
+# Register Effects
+RUN echo "@import 'stellar-effects';" >> /app/app/javascript/dashboard/assets/scss/app.scss
+
+# Inject Vue Components
+# Replacing the Login page (Mapped to the correct location in v3)
+COPY custom/Login.vue /app/app/javascript/v3/views/login/Index.vue
 
 # Inject Assets
 COPY custom/brand-assets/ /app/public/brand-assets/
