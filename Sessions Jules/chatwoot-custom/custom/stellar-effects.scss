@@ -1,0 +1,148 @@
+/* ==========================================================================
+   STELLAR SYNTEC - GLOBAL OVERRIDE SYSTEM
+   "Deep Space meets Cyberpunk"
+   ========================================================================== */
+
+// --- 1. GLOBAL RESET & BACKGROUND ---
+#app, body, html {
+  background: radial-gradient(circle at top center, #050A28 0%, #00000F 100%) !important;
+  color: #F0F0FF !important;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+// --- 2. GLASSMORPHISM MIXINS ---
+@mixin glass-panel {
+  background: rgba(5, 10, 40, 0.65) !important;
+  backdrop-filter: blur(12px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+  border: 1px solid rgba(0, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+@mixin neon-glow {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.05);
+  border-color: rgba(0, 255, 255, 0.5) !important;
+}
+
+// --- 3. COMPONENT OVERRIDES (A Transmutação) ---
+
+// A. SIDEBAR & HEADER
+aside, header, .sidebar {
+  @include glass-panel;
+}
+
+// B. TABELAS (Contatos, Relatórios) - Removendo o branco
+table, .table {
+  background: transparent !important;
+  
+  thead {
+    th {
+      background: rgba(0, 255, 255, 0.05) !important;
+      color: #00FFFF !important;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+  }
+
+  tbody {
+    tr {
+      background: transparent !important;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(0, 255, 255, 0.08) !important;
+        transform: scale(1.002);
+      }
+      
+      td {
+        border-bottom: 1px solid rgba(0, 255, 255, 0.05);
+        color: #E0E0FF;
+      }
+    }
+  }
+}
+
+// C. CARDS DE CONVERSA & LISTAS
+.conversation--list, .conversation-panel {
+  @include glass-panel;
+}
+
+.conversation-card {
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  
+  &:hover {
+    background: rgba(0, 255, 255, 0.05) !important;
+    border-color: rgba(0, 255, 255, 0.3) !important;
+  }
+  
+  &.active {
+    @include neon-glow;
+    background: rgba(0, 255, 255, 0.1) !important;
+  }
+}
+
+// D. INPUTS & FORMS
+input, textarea, select {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(0, 255, 255, 0.2) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  
+  &:focus {
+    border-color: #00FFFF !important;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2) !important;
+  }
+}
+
+// E. BOTÕES (Cyberpunk)
+button, .button {
+  border-radius: 6px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  // Botões Primários (Cyan)
+  &.primary, &.bg-woot-500, &.bg-blue-600 {
+    background: linear-gradient(135deg, #00C4CC 0%, #0088AA 100%) !important;
+    border: 1px solid #00FFFF !important;
+    color: #000 !important;
+    
+    &:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// F. MODAIS (Popups)
+.modal-content, .woot-modal {
+  @include glass-panel;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 255, 255, 0.3) !important;
+  
+  .modal-header {
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    h3 { color: #00FFFF !important; }
+  }
+}
+
+// G. SCROLLBARS (Clean)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.2);
+  border-radius: 4px;
+  &:hover { background: rgba(0, 255, 255, 0.4); }
+}
+
+// H. ANIMATIONS
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
