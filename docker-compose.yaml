@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  base: &base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RAILS_ENV: production
+        NODE_ENV: production
+    env_file: .env
+    environment:
+      - RAILS_ENV=production
+      - NODE_ENV=production
+      - RAILS_LOG_TO_STDOUT=true
+      - NODE_OPTIONS=--max-old-space-size=4096
+
+  rails:
+    <<: *base
+    image: stellar-chatwoot:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    # Using 'command' to start rails server.
+    # The .env file will provide DATABASE_URL if needed, but here we rely on the specific POSTGRES_* env vars Chatwoot uses.
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
+    volumes:
+      - storage:/app/storage
+
+  sidekiq:
+    <<: *base
+    image: stellar-chatwoot:latest
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - storage:/app/storage
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    restart: always
+    command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\" --appendonly yes"]
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+volumes:
+  postgres_data:
+  redis_data:
+  storage:
