@@ -1,0 +1,51 @@
+// Stellar Syntec - Custom Effects
+
+// Colors
+$stellar-space-start: #00001A;
+$stellar-space-end: #080824;
+$stellar-cyan: #00FFFF;
+$stellar-cyan-rgb: 0, 255, 255;
+$stellar-glass-bg: rgba(10, 10, 35, 0.7);
+
+// Mixins
+@mixin stellar-glass-panel {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: $stellar-glass-bg;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin stellar-neon-border {
+  border: 1px solid rgba($stellar-cyan, 0.3);
+  box-shadow: 0 0 10px rgba($stellar-cyan, 0.2);
+}
+
+@mixin stellar-active-glow {
+  color: $stellar-cyan;
+  text-shadow: 0 0 8px rgba($stellar-cyan, 0.6);
+  transition: all 0.3s ease;
+}
+
+// Utility Classes
+.bg-stellar-space {
+  background: linear-gradient(to bottom, $stellar-space-start, $stellar-space-end);
+}
+
+.stellar-glass {
+  @include stellar-glass-panel;
+}
+
+.stellar-neon-border {
+  @include stellar-neon-border;
+}
+
+.stellar-glow-active {
+  @include stellar-active-glow;
+}
+
+// Global variable overrides for specific components if needed
+:root {
+  --stellar-space-start: #{$stellar-space-start};
+  --stellar-space-end: #{$stellar-space-end};
+  --stellar-cyan: #{$stellar-cyan};
+}

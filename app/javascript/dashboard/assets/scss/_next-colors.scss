@@ -1,0 +1,136 @@
+// scss-lint:disable PropertySortOrder
+@layer base {
+  // NEXT COLORS START - STELLAR SYNTEC EDITION
+  :root {
+    // Force Deep Space Theme even in "light" mode variables, or keep them as fallback
+    // We will apply the Deep Space palette to :root as well to ensure consistency if the user doesn't switch to dark mode
+    // However, usually :root is light. Let's make :root the Deep Space theme directly as requested "Transmutation Total".
+
+    // stellar-slate (Cool Grays/Blues)
+    --slate-1: 0 0 26;       // Deep Space Start
+    --slate-2: 5 5 31;
+    --slate-3: 10 10 35;     // Glass Base
+    --slate-4: 15 15 40;
+    --slate-5: 20 20 45;
+    --slate-6: 30 30 55;
+    --slate-7: 50 50 80;
+    --slate-8: 80 80 110;
+    --slate-9: 120 120 150;
+    --slate-10: 150 150 180;
+    --slate-11: 180 180 210;
+    --slate-12: 240 240 255; // Text White-ish
+
+    // stellar-iris (Primary Purples)
+    --iris-1: 10 10 35;
+    --iris-2: 15 15 45;
+    --iris-3: 25 25 65;
+    --iris-4: 35 35 85;
+    --iris-5: 45 45 105;
+    --iris-6: 55 55 125;
+    --iris-7: 75 75 165;
+    --iris-8: 95 95 205;
+    --iris-9: 0 255 255;     // Cyan Accent (replacing primary iris)
+    --iris-10: 50 200 255;
+    --iris-11: 100 220 255;
+    --iris-12: 200 240 255;
+
+    // stellar-blue
+    --blue-1: 0 0 26;
+    --blue-2: 5 5 31;
+    --blue-3: 10 10 40;
+    --blue-4: 15 20 60;
+    --blue-5: 20 30 80;
+    --blue-6: 30 50 110;
+    --blue-7: 40 70 140;
+    --blue-8: 50 90 170;
+    --blue-9: 0 255 255;     // Cyan Main
+    --blue-10: 0 200 200;
+    --blue-11: 0 150 150;
+    --blue-12: 200 255 255;
+
+    // Keep other colors (Ruby, Amber, Teal, Violet) darker/cooler to match
+    // Simplified for this task to mostly dark bases
+    --ruby-1: 25 5 10;
+    --ruby-9: 255 50 100;
+
+    --amber-1: 25 15 5;
+    --amber-9: 255 200 50;
+
+    --teal-1: 5 25 20;
+    --teal-9: 50 255 200;
+
+    --gray-1: 0 0 26;
+    --gray-2: 5 5 31;
+    --gray-3: 10 10 35;
+    --gray-4: 15 15 40;
+    --gray-9: 120 120 150;
+    --gray-12: 240 240 255;
+
+    // Backgrounds & Solids
+    --background-color: 0 0 26;
+    --text-blue: 0 255 255;
+    --border-container: 10 10 35;
+    --border-strong: 0 255 255;
+    --border-weak: 30 30 60;
+
+    --solid-1: 5 5 31;
+    --solid-2: 10 10 35;
+    --solid-3: 15 15 40;
+    --solid-active: 20 20 50;
+
+    --solid-amber: 40 30 10;
+    --solid-blue: 10 30 60;
+    --solid-iris: 15 15 50;
+
+    // Alphas
+    --alpha-1: 0, 255, 255, 0.1;
+    --alpha-2: 10, 10, 35, 0.7;
+    --alpha-3: 255, 255, 255, 0.9;
+    --black-alpha-1: 0, 0, 0, 0.5;
+    --black-alpha-2: 0, 0, 0, 0.3;
+    --border-blue: 0, 255, 255, 0.5;
+    --white-alpha: 255, 255, 255, 0.2;
+  }
+
+  .dark {
+    // Inherit or redefine for dark mode (basically same as above for this theme)
+    // slate
+    --slate-1: 0 0 26;
+    --slate-2: 5 5 31;
+    --slate-3: 10 10 35;
+    --slate-4: 15 15 40;
+    --slate-5: 20 20 45;
+    --slate-6: 30 30 55;
+    --slate-7: 50 50 80;
+    --slate-8: 80 80 110;
+    --slate-9: 120 120 150;
+    --slate-10: 150 150 180;
+    --slate-11: 180 180 210;
+    --slate-12: 240 240 255;
+
+    --iris-1: 10 10 35;
+    --iris-9: 0 255 255;
+
+    --blue-1: 0 0 26;
+    --blue-9: 0 255 255;
+    --blue-12: 200 255 255;
+
+    --background-color: 0 0 26;
+    --border-strong: 0 255 255;
+    --border-weak: 30 30 60;
+    --solid-1: 5 5 31;
+    --solid-2: 10 10 35;
+    --solid-3: 15 15 40;
+    --solid-active: 20 20 50;
+    --text-blue: 0 255 255;
+
+    --alpha-1: 0, 255, 255, 0.1;
+    --alpha-2: 10, 10, 35, 0.7;
+    --alpha-3: 0, 0, 26, 0.9;
+    --black-alpha-1: 0, 0, 0, 0.5;
+    --black-alpha-2: 0, 0, 0, 0.3;
+    --border-blue: 0, 255, 255, 0.5;
+    --white-alpha: 255, 255, 255, 0.1;
+  }
+}
+// NEXT COLORS END
